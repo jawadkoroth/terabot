@@ -1,0 +1,29 @@
+# fly.toml app configuration file generated for auto-link-converter-bot-frosty-feather-9648 on 2025-03-12T17:04:36Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'auto-link-converter-bot-frosty-feather-9648'
+primary_region = 'bom'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[env]
+  API_HASH = 'a734126107ce3fa3c711a6993a5ebfa1'
+  API_ID = '25742525'
+  BOT_TOKEN = '7602089383:AAH9Hu589_8NUXqhtDG5fsrOCWUxIO9mnlY'
+  PHONE_NUMBER = '+918156935171'
+  TARGET_BOT = 'TeraboxDownloader_4Bot'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
