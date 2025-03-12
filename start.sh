@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 -m terabot.py
+python3 terabot.py
