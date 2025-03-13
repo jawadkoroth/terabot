@@ -5,6 +5,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 from telethon import TelegramClient, events
 from telethon.tl.types import MessageMediaDocument, MessageMediaPhoto
+import uvicorn
 
 # Configure logging
 logging.basicConfig(
@@ -92,7 +93,8 @@ async def handle_target_response(event):
             await app.bot.send_document(
                 chat_id=user_chat_id,
                 document=open(file, 'rb'),
-                caption=f"✅ Your file is ready! Enjoy! 😊"
+                caption=f"📁 *File from @{TARGET_BOT}*\n\n"
+                        "✅ Your file is ready! Enjoy! 😊"
             )
             logger.info(f"Forwarded document {response.id} to user {user_chat_id}")
             os.remove(file)  # Delete the file from the server after sending
@@ -102,7 +104,8 @@ async def handle_target_response(event):
             await app.bot.send_photo(
                 chat_id=user_chat_id,
                 photo=open(file, 'rb'),
-                caption=f"✅ Your photo is ready! Enjoy! 😊"
+                caption=f"🖼️ *Photo from @{TARGET_BOT}*\n\n"
+                        "✅ Your photo is ready! Enjoy! 😊"
             )
             logger.info(f"Forwarded photo {response.id} to user {user_chat_id}")
             os.remove(file)  # Delete the file from the server after sending
@@ -141,6 +144,7 @@ async def main():
 
 if __name__ == "__main__":
     try:
-        asyncio.run(main())
+        # Start the bot with Uvicorn to listen on 0.0.0.0:8080 for Fly.io
+        uvicorn.run(main(), host="0.0.0.0", port=8080)
     except KeyboardInterrupt:
         logger.info("Bot stopped by user")
